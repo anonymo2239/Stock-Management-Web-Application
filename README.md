@@ -4,6 +4,14 @@ This project, **Stock Management Application**, is designed to manage product in
 
 ---
 
+![](readme_images/1.png)
+*User Panel*
+
+![](readme_images/6.png)
+*Admin Panel*
+
+---
+
 ## **Features**
 
 ### **Stock Management**
@@ -115,8 +123,8 @@ This project, **Stock Management Application**, is designed to manage product in
 3. Monitor and review all actions via the logging system.
 
 ## Contributors
-   * Developer 1: Adem Alperen Arda (alperen.arda.adem22@gmail.com)
-   * Developer 2: Ömer Şimşek (omer20200@hotmail.com)
+   * Developer: Adem Alperen Arda (alperen.arda.adem22@gmail.com)
+   * Developer: Ömer Şimşek (omer20200@hotmail.com)
 
 ## License
 This project is licensed under the MIT License.
