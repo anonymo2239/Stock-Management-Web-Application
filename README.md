@@ -60,20 +60,63 @@ This project, **Stock Management Application**, is designed to manage product in
    pip install -r requirements.txt
 
 4. **Configure MS SQL Database**
-  * Make sure the django-mssql-backend package is installed.
-  * Open the settings.py file and update the database settings:
+     * Make sure the django-mssql-backend package is installed.
+     * Open the settings.py file and update the database settings:
+      ```bash
+      DATABASES = {
+       'default': {
+           'ENGINE': 'mssql',
+           'NAME': 'DbStockApplication',
+           'USER': 'your_db_user',
+           'PASSWORD': 'your_password',
+           'HOST': 'your_server_host',
+           'PORT': '1433',
+           'OPTIONS': {
+               'driver': 'ODBC Driver 17 for SQL Server',
+           },
+       }
+   }
+   
+5. **Apply Database Migrations**
    ```bash
-   DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'DbStockApplication',
-        'USER': 'your_db_user',
-        'PASSWORD': 'your_password',
-        'HOST': 'your_server_host',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    }
-}
+   python manage.py makemigrations
+   python manage.py migrate
+   
+6. **Run the Development Server**
+   ```bash
+   python manage.py runserver
 
+7. **Access the Application**
+   * Admin panel: http://127.0.0.1:8000/admin
+   * Application: http://127.0.0.1:8000
+  
+## Database Setup
+1. Create a New Database in MS SQL Server
+   * Open SQL Server Management Studio (SSMS).
+   * Create a new database:
+   ```bash
+   CREATE DATABASE StockManagementDB;
+
+2. Create Tables
+   * Use the provided SQL script to define the database schema:
+   ```bash
+   CREATE TABLE Products (
+       id INT PRIMARY KEY IDENTITY,
+       name NVARCHAR(100),
+       stock INT,
+       price DECIMAL(10, 2)
+   );
+   ```
+   * Define other tables and relationships based on your requirements.
+
+## Usage
+1. Log in to the admin panel to manage stock, orders, and customer requests.
+2. Use the threading simulation to handle tasks based on priority scores.
+3. Monitor and review all actions via the logging system.
+
+## Contributors
+   * Developer 1: Adem Alperen Arda (alperen.arda.adem22@gmail.com)
+   * Developer 2: Ömer Şimşek (omer20200@hotmail.com)
+
+## License
+This project is licensed under the MIT License.
