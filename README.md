@@ -149,7 +149,7 @@ This project, **Stock Management Application**, is designed to manage product in
 ![](stock_process/readme_images/8.png)
 *Products table and chart where admin can arrange stock datas*
 
-![](stock_process/readme_images/8.png)
+![](stock_process/readme_images/9.png)
 *"Maintenance" warning if admin turn on the edit mode*
 
 ## License
