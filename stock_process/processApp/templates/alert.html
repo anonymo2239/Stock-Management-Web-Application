@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Güncellemesi</title>
+    <style>
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Koyu arka plan */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .alert-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+            width: 90%;
+            animation: slideIn 0.8s ease-out;
+            backdrop-filter: blur(10px);
+            transform-origin: center;
+        }
+
+        .alert-box:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        .alert-box h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .alert-box h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .alert-box:hover h1::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .alert-box p {
+            font-size: 16px;
+            color: #34495e;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .alert-box button {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .alert-box button:hover {
+            animation: none;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+        }
+
+        .alert-box button:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 480px) {
+            .alert-box {
+                width: 85%;
+                padding: 20px;
+            }
+
+            .alert-box h1 {
+                font-size: 24px;
+            }
+
+            .alert-box p {
+                font-size: 14px;
+            }
+
+            .alert-box button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="alert-box">
+        <h1>Güncelleme!</h1>
+        <p>Sistemimizde bir güncelleme yapılmaktadır. Lütfen Daha Sonra Tekrar Deneyiniz</p>
+        <button onclick="window.location.reload()">Sayfayı Yenile</button>
+    </div>
+</body>
+</html>

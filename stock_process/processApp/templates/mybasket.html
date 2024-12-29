@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sepetim</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: starFall linear infinite;
+        }
+
+        @keyframes starFall {
+            from {
+                transform: translateY(-100px);
+            }
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    
+        body {
+            background-color: #1a1a1a;
+            padding: 20px;
+            color: #e0e0e0;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+    
+        .basket-container {
+            background-color: rgba(45, 45, 45, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            backdrop-filter: blur(5px);
+        }
+    
+        h2 {
+            color: #fff;
+            margin: 0 0 30px;
+            font-size: 24px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+    
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border-radius: 2px;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(45, 45, 45, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+    
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+            vertical-align: middle;
+        }
+    
+        th {
+            background: rgba(51, 51, 51, 0.9);
+            font-weight: 600;
+            color: #fff;
+        }
+    
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+    
+        .quantity-controls button {
+            width: 30px;
+            height: 30px;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    
+        .quantity-controls button:hover {
+            background: #555;
+        }
+    
+        .quantity-controls input {
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            background: #333;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+    
+        .remove-btn:hover {
+            background: #c82333;
+        }
+    
+        .trash-btn {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 20px;
+            transition: color 0.3s ease;
+            padding: 8px;
+        }
+    
+        .trash-btn:hover {
+            color: #c82333;
+        }
+    
+        .total-price {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(51, 51, 51, 0.9);
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            backdrop-filter: blur(5px);
+        }
+    
+        button[name="place_order"] {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+    
+        button[name="place_order"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+    
+        .back-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(51, 51, 51, 0.9);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+    
+        .back-link:hover {
+            background: #444;
+            transform: translateY(-2px);
+        }
+    
+        .success-message {
+            padding: 15px;
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border-radius: 8px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+        }
+    
+        .error-message {
+            padding: 15px;
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border-radius: 8px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+        }
+    
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+    
+            .basket-container {
+                padding: 15px;
+            }
+    
+            th, td {
+                padding: 10px;
+            }
+    
+            .quantity-controls {
+                flex-direction: row;
+                margin-bottom: 5px;
+            }
+    
+            .quantity-controls input {
+                width: 40px;
+            }
+    
+            .remove-btn {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="stars" class="stars"></div>
+    
+    <div class="basket-container">
+        <h2>Sepetim</h2>
+        
+        {% if cart %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Adet</th>
+                        <th>Birim Fiyat</th>
+                        <th>Toplam</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product_id, item in cart.items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button onclick="updateQuantity('{{ product_id }}', -1)">-</button>
+                                <input type="number" 
+                                       value="{{ item.quantity }}" 
+                                       min="1"
+                                       max="5" 
+                                       data-product-id="{{ product_id }}"
+                                       onchange="validateQuantity(this)"
+                                       readonly>
+                                <button onclick="updateQuantity('{{ product_id }}', 1)">+</button>
+                            </div>
+                        </td>
+                        <td>{{ item.price }} TL</td>
+                        <td>{{ item.total }} TL</td>
+                        <td>
+                            <button onclick="removeItem('{{ product_id }}')" class="trash-btn">🗑️</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="total-price">
+                Toplam Tutar: {{ total_price }} TL
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="place_order">Sipariş Ver</button>
+            </form>
+            
+            {% if message %}
+                <div class="success-message">{{ message }}</div>
+            {% endif %}
+            
+            {% if error %}
+                <div class="error-message">{{ error }}</div>
+            {% endif %}
+        {% else %}
+            <p>Sepetiniz boş!</p>
+        {% endif %}
+
+        <a href="{% url 'processApp:userpanel' %}" class="back-link">Alışverişe Devam Et</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    function createStars() {
+        const starsContainer = document.getElementById('stars');
+        if (!starsContainer) return;
+        
+        const numberOfStars = 50;
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            starsContainer.appendChild(star);
+        }
+    }
+
+    createStars();
+});
+
+function validateQuantity(input) {
+    if (input.value > 5) {
+        input.value = 5;
+        alert('Maksimum sipariş miktarı 5 adettir.');
+    } else if (input.value < 1) {
+        input.value = 1;
+        alert('Minimum sipariş miktarı 1 adettir.');
+    }
+}
+
+function updateQuantity(productId, change) {
+    const quantityInput = document.querySelector(`input[data-product-id="${productId}"]`);
+    let newQuantity = parseInt(quantityInput.value) + change;
+    if (newQuantity > 5) {
+        alert('Maksimum sipariş miktarı 5 adettir.');
+        newQuantity = 5;
+    }
+    if (newQuantity < 1) newQuantity = 1;
+    
+    fetch('/update-cart/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            'product_id': productId.toString(),
+            'quantity': newQuantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+
+function removeItem(productId) {
+    if (confirm('Bu ürünü sepetten kaldırmak istediğinize emin misiniz?')) {
+        fetch('/remove-from-cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'product_id': productId.toString()
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!-- queue.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sipariş Sıranız</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .queue-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .queue-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .position {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background-color: #2196F3;
+            transition: width 0.5s ease-in-out;
+        }
+        .refresh-time {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="queue-container">
+        <div class="queue-info">
+            <h2>Sipariş Sıranız</h2>
+            <p>Sipariş ID: <strong>{{ order.id }}</strong></p>
+            <p>Sıra Numaranız: <span class="position">{{ queue_position }}</span></p>
+            <p>Tahmini Bekleme Süresi: <span id="waiting-time">{{ estimated_wait }} dakika</span></p>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress-bar"></div>
+        </div>
+        
+        <div class="refresh-time">
+            <p>Sayfa otomatik olarak güncellenmektedir...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sipariş ID'sini backend'den al
+            const orderId = "{{ order.id }}";
+            const progressBar = document.getElementById('progress-bar');
+            const positionElement = document.querySelector('.position');
+            const waitingTimeElement = document.getElementById('waiting-time');
+            let checkCount = 0;
+            const maxChecks = 30; // Maksimum kontrol sayısı
+    
+            function checkOrderStatus() {
+                fetch(`/get-queue-position/${orderId}/`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("HTTP hatası: " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.is_approved) {
+                            window.location.href = '/queue/approved/';
+                        } else if (data.is_rejected) {
+                            window.location.href = '/queue/rejected/';
+                        } else {
+                            // Bekleme pozisyonu ve süreyi güncelle
+                            positionElement.textContent = data.position || 'Bekleniyor';
+                            waitingTimeElement.textContent = `${data.estimated_wait || 0} dakika`;
+                            progressBar.style.width = `${data.progress || 0}%`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Durum kontrol hatası:', error);
+                    });
+            }
+    
+            // İlk kontrolü hemen yap
+            checkOrderStatus();
+    
+            // Her 3 saniyede bir kontrol
+            const statusInterval = setInterval(() => {
+                if (checkCount >= maxChecks) {
+                    clearInterval(statusInterval);
+                    alert('Sipariş durumu kontrol edilemedi. Lütfen tekrar deneyin.');
+                    return;
+                }
+                checkCount++;
+                checkOrderStatus();
+            }, 3000);
+    
+            // Sayfa kapanırken interval'i temizle
+            window.addEventListener('beforeunload', function () {
+                clearInterval(statusInterval);
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>

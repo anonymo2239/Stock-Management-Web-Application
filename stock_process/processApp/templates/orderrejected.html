@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sipariş İptal Edildi</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .reject-icon {
+            color: #dc3545;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="reject-icon">✕</div>
+        <h1>Siparişiniz İptal Edildi</h1>
+        <p>Üzgünüz, siparişiniz iptal edildi.</p>
+        <a href="{% url 'processApp:userpanel' %}" class="btn">Ana Sayfaya Dön</a>
+    </div>
+</body>
+</html>

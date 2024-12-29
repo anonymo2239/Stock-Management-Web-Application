@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ana Sayfa</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #2196F3;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: moveParticle linear infinite;
+            box-shadow: 0 0 10px #2196F3;
+        }
+
+        .glow-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(33, 150, 243, 0.2), transparent);
+            height: 1px;
+            width: 100%;
+            animation: moveLine linear infinite;
+        }
+
+        @keyframes moveLine {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        @keyframes moveParticle {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            50% {
+                transform: translate(calc(var(--moveX) / 2), calc(var(--moveY) / 2)) rotate(180deg) scale(1.2);
+            }
+            100% {
+                transform: translate(var(--moveX), var(--moveY)) rotate(360deg) scale(1);
+            }
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2196F3;
+            text-shadow: 0 0 15px rgba(33, 150, 243, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding-top: 150px;
+            text-align: center;
+            position: relative;
+            min-height: calc(100vh - 100px); /* header ve footer yüksekliğini çıkar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(33, 150, 243, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .login-btn {
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.5);
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.5);
+            margin-top: auto;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .social-links a:hover {
+            color: #2196F3;
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .login-btn {
+                padding: 15px 35px;
+                font-size: 1.1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background" id="animated-bg"></div>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">HepsiŞurada</div>
+            <div class="social-links">
+                <a href="#" title="İletişim">📱</a>
+                <a href="#" title="Mail">📧</a>
+                <a href="#" title="Mesaj">💬</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div>
+            <h1>HepsiŞurada'ya Hoşgeldiniz</h1>
+            <a href="{% url 'processApp:login' %}" class="login-btn">
+                Giriş Yap
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024 HepsiŞurada. Tüm hakları saklıdır.</p>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bg = document.getElementById('animated-bg');
+            const numberOfParticles = 40;
+            const numberOfLines = 10;
+
+            // Parçacıklar
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                const moveX = (Math.random() - 0.5) * 300;
+                const moveY = (Math.random() - 0.5) * 300;
+                particle.style.setProperty('--moveX', `${moveX}px`);
+                particle.style.setProperty('--moveY', `${moveY}px`);
+                
+                particle.style.animationDuration = `${Math.random() * 20 + 15}s`;
+                particle.style.opacity = Math.random() * 0.6 + 0.2;
+                
+                bg.appendChild(particle);
+            }
+
+            // Parlayan çizgiler
+            for (let i = 0; i < numberOfLines; i++) {
+                const line = document.createElement('div');
+                line.className = 'glow-line';
+                
+                line.style.top = `${Math.random() * 100}%`;
+                line.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                line.style.opacity = Math.random() * 0.3 + 0.1;
+                
+                bg.appendChild(line);
+            }
+        });
+    </script>
+</body>
+</html>
