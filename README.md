@@ -4,7 +4,7 @@ This project, **Stock Management Application**, is designed to manage product in
 
 ---
 
-![](readme_images/1.png)
+![](stock_app/readme_images/1.png)
 *User Panel*
 
 ![](readme_images/6.png)
