@@ -128,28 +128,28 @@ This project, **Stock Management Application**, is designed to manage product in
 
 ## Photos
 
-![](readme_images/2.png)
+![](stock_process/readme_images/2.png)
 *Pie chart in user panel*
 
-![](readme_images/3.png)
+![](stock_process/readme_images/3.png)
 *User requests for addition stock*
 
-![](readme_images/4.png)
+![](stock_process/readme_images/4.png)
 *User's shop basket for ordering*
 
-![](readme_images/5.png)
+![](stock_process/readme_images/5.png)
 *Order and info page*
 
-![](readme_images/10.png)
+![](stock_process/readme_images/10.png)
 *Page of "Your order has been confirmed" info*
 
-![](readme_images/7.png)
+![](stock_process/readme_images/7.png)
 *Log section where admin can see log records*
 
-![](readme_images/8.png)
+![](stock_process/readme_images/8.png)
 *Products table and chart where admin can arrange stock datas*
 
-![](readme_images/8.png)
+![](stock_process/readme_images/8.png)
 *"Maintenance" warning if admin turn on the edit mode*
 
 ## License
